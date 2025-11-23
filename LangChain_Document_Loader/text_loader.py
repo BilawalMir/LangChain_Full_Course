@@ -10,11 +10,13 @@ model = ChatOpenAI()
 parser = StrOutputParser()
 
 prompt = PromptTemplate(
-    template= 'write the summary of the following poem - \n {poem}'
-    input_variables=['poem']
+    template="write the summary of the following poem - \n {poem}",
+    input_variables=["poem"],
 )
 
-loader = TextLoader("D:\LangChain_Models\LangChain_Document_Loader\cricket.txt", encoding='utf-8')
+loader = TextLoader(
+    "D:\LangChain_Models\LangChain_Document_Loader\cricket.txt", encoding="utf-8"
+)
 
 docs = loader.load()
 
@@ -28,4 +30,4 @@ print(docs[0].metadata)
 
 chain = prompt | model | parser
 
-chain.invoke({'poem': docs[0].page_content})
+chain.invoke({"poem": docs[0].page_content})
