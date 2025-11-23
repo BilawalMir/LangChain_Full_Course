@@ -6,7 +6,15 @@ loader = DirectoryLoader(
     loader_cls=PyPDFLoader,
 )
 docs = loader.load()
+
 print(len(docs))
 
 print(docs[325].page_content)
 print(docs[325].metadata)
+
+#OR
+#OR
+docs1 = loader.lazy_load()
+
+for document in docs1:
+    print(document.metadata)
