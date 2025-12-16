@@ -1,0 +1,41 @@
+from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings
+from langchain_core.documents import Document
+from dotenv import load_dotenv
+
+load_dotenv()
+
+embeddings = OpenAIEmbeddings()
+
+documents = [
+    Document(
+        page_content="Virat Kohli is one of the most successful and consistent batsmen in IPL history. Known for his aggressive batting style and fitness, he has led the Royal Challengers Bangalore in multiple seasons."
+    ),
+    Document(
+        page_content="Rohit Sharma is the most successful captain in IPL history, leading Mumbai Indians to five titles. He's known for his calm demeanor and ability to play big innings under pressure."
+    ),
+    Document(
+        page_content="MS Dhoni, famously known as Captain Cool, has led Chennai Super Kings to multiple IPL titles. His finishing skills, wicketkeeping, and leadership are legendary."
+    ),
+]
+
+vector_store = FAISS.from_documents(
+    documents=documents,
+    embeddings=embeddings,
+    collection_name="my_collection",
+)
+
+retriever = vector_store.as_retriever(
+  search_type = "mmr",
+  search_kwargs = {
+    "k": 2,
+    "lambda_mult": 0.5
+  }
+)
+
+results = retriever.invoke(query="Who is the most successful captain in IPL history?")
+
+for i , doc in enumerate(results):
+    print(f"\n --- {i+1}---")
+    print(doc.page_content)
+
