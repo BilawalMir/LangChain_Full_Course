@@ -3,7 +3,8 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_core.documents import Document
 from dotenv import load_dotenv
-from langchain.retrivers.multi_query import MultiQueryRetriever
+from langchain_community.retrievers.multi_query import MultiQueryRetriever
+
 
 load_dotenv()
 
