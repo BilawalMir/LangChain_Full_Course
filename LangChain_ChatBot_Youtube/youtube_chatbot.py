@@ -54,7 +54,7 @@ prompt = PromptTemplate(
 question = "is the topic of nuclear fusion discussed in this video? if yes then what was discussed"
 retrieved_docs = retriever.invoke(question)
 
-context_text = " ".join(doc.page_content for doc in retrieved_docs)
+context_text = "\n\n".join(doc.page_content for doc in retrieved_docs)
 
 final_prompt = prompt.invoke({"context": context_text, "question": question})
 
@@ -65,7 +65,7 @@ print(answer.content)
 
 # BUILDING A CHAIN
 def formate_doc(retrieved_docs):
-    context_text = " ".join(doc.page_content for doc in retrieved_docs)
+    context_text = "\n\n".join(doc.page_content for doc in retrieved_docs)
     return context_text
 
 
